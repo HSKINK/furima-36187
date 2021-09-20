@@ -21,7 +21,7 @@
 
 |Column     |Type       |Options                        |
 |-----------|-----------|-------------------------------|
-|product    |text       |null: false                    |
+|product    |string     |null: false                    |
 |description|text       |null: false                    |
 |category_id|integer    |null: false                    |
 |content_id |integer    |null: false                    |
