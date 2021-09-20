@@ -2,14 +2,16 @@
 
 ## users テーブル
 
-|Column             |Type   |Options    |
-|-------------------|-------|-----------|
-|nickname           |string |null: false|
-|email              |string |null: false|
-|encrypted_password |string |null: false|
-|name               |string |null: false|
-|name_kana          |string |null: false|
-|birthday           |string |null: false|
+|Column             |Type   |Options                  |
+|-------------------|-------|-------------------------|
+|nickname           |string |null: false              |
+|email              |string |null: false, unique: true|
+|encrypted_password |string |null: false              |
+|last_name          |string |null: false              |
+|first_name         |string |null: false              |
+|last_name_kana     |string |null: false              |
+|first_name_kana    |string |null: false              |
+|birthday           |date   |null: false              |
 
 ### Association
 - has_many :items
@@ -19,16 +21,15 @@
 
 |Column     |Type       |Options                        |
 |-----------|-----------|-------------------------------|
-|image      |           |null: false                    |
 |product    |text       |null: false                    |
 |description|text       |null: false                    |
-|category   |string     |null: false                    |
-|content    |string     |null: false                    |
-|charge     |string     |null: false                    |
-|area       |string     |null: false                    |
-|ship       |string     |null: false                    |
-|price      |string     |null: false                    |
-|user_id    |references |null: false, foreign_key: true |
+|category_id|integer    |null: false                    |
+|content_id |integer    |null: false                    |
+|charge_id  |integer    |null: false                    |
+|area_id    |integer    |null: false                    |
+|ship_id    |integer    |null: false                    |
+|price      |integer    |null: false                    |
+|user       |references |null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -36,27 +37,27 @@
 
 ## histories テーブル
 
-|Column     |Type       |Options                        |
-|-----------|-----------|-------------------------------|
-|user_id    |references |null: false, foreign_key: true |
-|item_id    |references |null: false, foreign_key: true |
-|address_id |references |null: false, foreign_key: true |
+|Column |Type       |Options                        |
+|-------|-----------|-------------------------------|
+|user   |references |null: false, foreign_key: true |
+|item   |references |null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
 
 ## addresses テーブル
 
-|Column       |Type   |Options    |
-|-------------|-------|-----------|
-|postal_code  |string |null: false|
-|prefecture   |string |null: false|
-|municipality |string |null: false|
-|house_number |string |null: false|
-|building_name|string |           |
-|number       |string |null: false|
+|Column       |Type     |Options                        |
+|-------------|---------|-------------------------------|
+|postal_code  |string   |null: false                    |
+|prefecture_id|integer  |null: false                    |
+|municipality |string   |null: false                    |
+|house_number |string   |null: false                    |
+|building_name|string   |                               |
+|number       |string   |null: false                    |
+|history      |reference|null: false, foreign_key: true |
 
 ### Association
-- has_many :histories
+- belongs_to :history
