@@ -8,6 +8,7 @@ describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録できるとき' do
       it '各項目に正しく入力がなされているなら登録できる' do
+        expect(@user).to be_valid
       end
     end
     context '新規登録できないとき' do
@@ -39,6 +40,21 @@ describe User, type: :model do
         @user.password = ''
         @user.valid?
         expect(@user.errors.full_messages).to include "Password can't be blank"
+      end
+      it 'passwordが英字のみでは登録できない' do
+        @user.password = 'abcdef'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+      end
+      it 'passwordが数字のみでは登録できない' do
+        @user.password = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+      end
+      it 'passwordが全各文字を含んでは登録できない' do
+        @user.password = 'abc12あ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password", "Password is invalid. Input full-width characters"
       end
       it 'password5文字以下では登録できない' do
         @user.password = 'aaaaa'
