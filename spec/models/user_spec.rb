@@ -43,18 +43,21 @@ describe User, type: :model do
       end
       it 'passwordが英字のみでは登録できない' do
         @user.password = 'abcdef'
+        @user.password_confirmation = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Input full-width characters'
       end
       it 'passwordが数字のみでは登録できない' do
         @user.password = '123456'
+        @user.password_confirmation = '123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Input full-width characters'
       end
-      it 'passwordが全各文字を含んでは登録できない' do
+      it 'passwordが全角文字を含んでは登録できない' do
         @user.password = 'abc12あ'
+        @user.password_confirmation = 'abc12あ'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password", "Password is invalid. Input full-width characters"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Input full-width characters'
       end
       it 'password5文字以下では登録できない' do
         @user.password = 'aaaaa'
