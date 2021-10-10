@@ -13,5 +13,9 @@ class Item < ApplicationRecord
   belongs_to :user
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :content, :charge, :area, :ship
+  belongs_to :category
+  belongs_to :content
+  belongs_to :charge
+  belongs_to :area
+  belongs_to :ship
 end
