@@ -49,7 +49,7 @@
       </li>
       <li class='list'>
         <%= image_tag "furima-intro03.png", class:"list-pict" %>
-        <span class='reason-list-number'>3</span>
+        <span class='reason-list-'>3</span>
         <h3 class='reason-list-text'>
           手数料
           <span class='reason-list-blue-text'>業界最安</span>
@@ -134,13 +134,11 @@
           <div class='item-img-content'>
             <%= image_tag item.image, class: "item-img" %>
 
-            <%# 商品が売れていればsold outを表示しましょう %>
-        <%# <% if %>
-        <%#   <div class='sold-out'>
+            <% if item.history != nil %>
+              <div class='sold-out'>
                 <span>Sold Out!!</span>
               </div>
             <% end %>
-            <%# //商品が売れていればsold outを表示しましょう %>
 
           </div>
           <div class='item-info'>
